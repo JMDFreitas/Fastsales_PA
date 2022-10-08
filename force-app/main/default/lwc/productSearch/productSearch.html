@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Deposito de Bebidas" icon-name="standard:products">
+        <!-- Deposito de Bebidas  Com a função de pesquisa por produtos -->
+        <div class="slds-m-around_medium">
+            <lightning-layout-item padding=" horizontal-small" class="slds-p-right_small slds-p-left_small">
+                <lightning-formatted-text
+                    class="slds-text-heading_small"
+                    value="Busca de produtos por categorias:"
+                ></lightning-formatted-text>
+                &nbsp;&nbsp;
+                <lightning-icon
+                    icon-name="utility:info"
+                    alternative-text=""
+                    title="Pesquise por uma categoria e pressione a tecla 'ENTER'"
+                    size="x-small"
+                ></lightning-icon>
+            </lightning-layout-item>
+            <lightning-input
+                type="search"
+                onkeyup={handleKeyUp}
+                class="style slds-p-right_small slds-p-left_small"
+                value={searchKey}
+            ></lightning-input>
+
+            <!-- Chamada do component que vai receber os produtos pesquisados -->
+            <div if:true={products}>
+                <c-product-screen products={products}></c-product-screen>
+            </div>
+
+            <!-- TODO: para caso de erros na chamadas dos produtos  -->
+            <template if:true={produtos.error}>
+                <!-- <c-error-panel errors={produtos.error}></c-error-panel> -->
+            </template>
+        </div>
+    </lightning-card>
+</template>
