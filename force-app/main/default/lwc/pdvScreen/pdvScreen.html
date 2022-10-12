@@ -1,7 +1,6 @@
 <template>
     <lightning-card title="PDV" footer="PDV" icon-name="custom:custom41">
         <div class="slds-m-around_medium">
-            <!-- <p class="slds-var-p-horizontal_small">TO DO: Módulo de vendas</p> -->
             <table
                 aria-multiselectable="true"
                 class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
@@ -10,14 +9,7 @@
             >
                 <thead>
                     <tr class="slds-line-height_reset">
-                        <!-- <th class="" scope="col" style="width: 3.75rem"></th> -->
-
-                        <th
-                            aria-label="Produto"
-                            aria-sort="none"
-                            class="slds-is-resizable slds-is-sortable"
-                            scope="col"
-                        >
+                        <th aria-label="Produto" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
                             <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
                                 <span class="slds-assistive-text">Sort by: </span>
                                 <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
@@ -43,20 +35,41 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody for:each={produtos} for:item="produto" key={produto.Id}>
-                    <tr aria-selected="false" class="slds-hint-parent">
-                        <th scope="row">
-                            <div class="slds-truncate" title="Analytics">{produto.Name}</div>
-                        </th>
-                        <td role="gridcell">
-                            <div class="slds-truncate" title="ANTLY">{produto.Preco}</div>
-                        </td>
-                        <td role="gridcell">
-                            <div class="slds-truncate" title="5000.00">{produto.QTD}</div>
+                <tbody class="slds-line-height_reset">
+                    <template for:each={products} for:item="produto">
+                        <tr key={produto.id} aria-selected="false" class="slds-hint-parent">
+                            <th scope="row">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="nome">{produto.nome}</div>
+                            </th>
+                            <td role="gridcell">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
+                                    <lightning-formatted-number
+                                        value={produto.preco}
+                                        format-style="currency"
+                                        currency-code="BRL"
+                                    ></lightning-formatted-number>
+                                </div>
+                            </td>
+                            <td role="gridcell">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="qtd">{produto.qtd}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+                <tfoot>
+                    <tr if:true={products}>
+                        <th scope="row">Total da Venda</th>
+                        <td>
+                            <lightning-formatted-number
+                                value={somaValores}
+                                format-style="currency"
+                                currency-code="BRL"
+                            ></lightning-formatted-number>
                         </td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
+            <lightning-button label="Finalizar venda!" onclick={finalizarVenda}></lightning-button>
         </div>
     </lightning-card>
 </template>

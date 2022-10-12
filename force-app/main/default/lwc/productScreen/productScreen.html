@@ -1,20 +1,23 @@
 <template>
+    <!-- <lightning-button label="call Event" onclick={calEvent}></lightning-button>-->
     <div class="style slds-var-p-around_small">
         <lightning-layout multiple-rows="true">
             <template for:each={products} for:item="produto">
                 <div
-                    key={produto.id}
+                    key={produto.Id}
+                    id={produto.Id}
                     class="product-style slds-align_absolute-center slds-var-m-around_small slds-var-p-around_small"
+                    onclick={selectHandler}
                 >
-                    <dl class="slds-list_stacked" onclick={selectHandler}>
-                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="produto">{produto.nome}</dt>
+                    <dl class="slds-list_stacked">
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="produto">{produto.Name}</dt>
                         <!-- <dd class="slds-item_detail slds-truncate" title="Description for first label"></dd> -->
 
                         <dt class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
-                            <lightning-formatted-number value={produto.preco} format-style="currency" currency-code="BRL">
+                            <lightning-formatted-number value={produto.Preco__c} format-style="currency" currency-code="BRL">
                             </lightning-formatted-number>
                         </dt>
-                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="qtd">QTD:{produto.qtd}</dt>
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="qtd">QTD:{produto.QTD__c}</dt>
 
                         <!-- <dd class="slds-item_detail slds-truncate" title="Second description"></dd> -->
                     </dl>

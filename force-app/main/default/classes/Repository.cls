@@ -120,7 +120,8 @@ public abstract class Repository {
     }
 
     public String buildWhereClauseLikeFilter(String clause, String filter) {
-        filter = '%' + filter + '%';
+        filter = '\'%' + filter + '%\'';
+        System.debug('filtro: ' + filter);
         return ' WHERE ' + clause + ' LIKE :filter';
     }
 

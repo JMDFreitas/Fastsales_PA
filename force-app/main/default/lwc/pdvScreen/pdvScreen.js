@@ -1,11 +1,61 @@
-import { LightningElement } from "lwc";
+import { LightningElement, api } from "lwc";
 
 export default class PdvScreen extends LightningElement {
-    produtos = [
-        { Name: "PD1", Preco: 2, QTD: 10, Id: 1 },
-        { Name: "PD2", Preco: 5, QTD: 105, Id: 2 },
-        { Name: "PD3", Preco: 1, QTD: 14, Id: 3 },
-        { Name: "PD4", Preco: 12, QTD: 33, Id: 4 },
-        { Name: "PD5", Preco: 22, QTD: 22, Id: 5 }
-    ];
+    produtos = [];
+    somaValores;
+    @api
+    set products(value) {
+        if (value != undefined) {
+            this.produtos.push(value);
+        }
+        this.total();
+    }
+    get products() {
+        return this.produtos;
+    }
+
+    total() {
+        return (this.somaValores = this.products
+            .map((el) => el.preco)
+            .reduce((acumulador, valorAtual) => acumulador + valorAtual, 0));
+    }
 }
+
+/* 
+import { CurrentPageReference } from "lightning/navigation";
+import { registerListener, unregisterAllListeners } from "c/pubsub";
+    @wire(CurrentPageReference) pagRef;
+    connectedCallback() {
+        registerListener("eventTest", this.handleCallback, this);
+    }
+
+    disconnectedCallback() {
+        unregisterAllListeners(this);
+    }
+
+    handleCallback(detail) {
+        alert("Parameters from publisher: " + detail.nome);
+    }
+    
+     {
+            ativo: true,
+            categoria: "Bebidas",
+            codigoBarras: "1000001004",
+            dataCriacao: "2022-10-01T17:52:38.000Z",
+            id: "a075f000004EoXTAA0",
+            nome: "Becks",
+            preco: 4,
+            qtd: 30
+        }
+
+        this.vetor = JSON.stringify(this.listdata.map((el) => el.preco));
+        console.log("Vetor Map: " + this.vetor);
+        const vetor2 = [...this.vetor];
+
+        console.log(
+            "Vetor 2: " +
+                vetor2.
+        );
+
+        
+    */

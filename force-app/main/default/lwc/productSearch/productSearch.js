@@ -1,8 +1,6 @@
-import { LightningElement, wire, api } from "lwc";
+import { LightningElement } from "lwc";
 import findProducts from "@salesforce/apex/ProductSearchController.findProdutosWhereCategoria";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
-const DELAY = 3000;
 
 export default class ProductSearch extends LightningElement {
     searchKey;
@@ -10,17 +8,24 @@ export default class ProductSearch extends LightningElement {
 
     handleKeyUp(evt) {
         const isEnterKey = evt.keyCode === 13;
+
         if (isEnterKey) {
             this.searchKey = evt.target.value;
-            console.log("Searchkey " + JSON.stringify(this.searchKey));
-            findProducts({ clause: "Categoria__c", filter: this.searchKey, orderBy: "CreatedDate" }).then((result) => {
-                if (result.length === 0) {
-                    this.showToast("Atenção", "Esta categoria não existe!", "warning");
-                    return;
-                }
-                this.products = result;
-                console.dir(this.products);
-            });
+
+            findProducts({ clause: "Name", filter: this.searchKey, orderBy: "CreatedDate" })
+                .then((result) => {
+                    if (result.length === 0) {
+                        this.showToast("Atenção", "Esta produto não existe!", "warning");
+                        return;
+                    }
+
+                    this.products = result[0];
+                })
+                .catch((error) => {
+                    if (error.status == 500) {
+                        this.showToast("Atenção", "A pesquisa está em branco", "warning");
+                    }
+                });
         }
     }
 
@@ -29,7 +34,7 @@ export default class ProductSearch extends LightningElement {
             title: varTitle,
             message: varMessage,
             variant: varVariant,
-            mode: "sticky"
+            mode: "pester"
         });
 
         this.dispatchEvent(event);

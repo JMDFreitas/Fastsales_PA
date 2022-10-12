@@ -1,14 +1,16 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, wire, track, api } from "lwc";
+import { CurrentPageReference } from "lightning/navigation";
+import { fireEvent } from "c/pubsub";
 
 export default class ProductScreen extends LightningElement {
-    @api recordId;
+    //@api recordId;
     @api products = [];
+    @wire(CurrentPageReference) pagRef;
 
     selectHandler(event) {
-        for (let produto of this.products) {
-            console.dir("Dados do event: " + JSON.stringify(event.target.key));
-            console.dir("Produto: " + JSON.stringify(produto));
-        }
+        console.log("clicou");
+        let valueCliked = event.target.id;
+        console.log("Dados do event: " + JSON.stringify(valueCliked));
 
         const selectedEvent = new CustomEvent("selected", { detail: this.products[0] });
 
