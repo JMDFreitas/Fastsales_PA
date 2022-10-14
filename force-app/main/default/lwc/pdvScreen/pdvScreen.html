@@ -1,86 +1,116 @@
 <template>
     <lightning-card title="PDV" footer="PDV" icon-name="custom:custom41">
         <div class="slds-m-around_medium">
-            <table
-                aria-multiselectable="true"
-                class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
-                role="grid"
-                aria-label="Example product list"
-            >
-                <thead>
-                    <tr class="slds-line-height_reset">
-                        <th aria-label="Produto" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
-                            <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
-                                <span class="slds-assistive-text">Sort by: </span>
-                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                                    <span class="slds-truncate" title="Produto">Produto</span>
-                                </div>
-                            </a>
-                        </th>
-                        <th aria-label="Preço" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
-                            <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
-                                <span class="slds-assistive-text">Sort by: </span>
-                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                                    <span class="slds-truncate" title="Preço"
-                                        >Preço
-                                        Uni.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X</span
-                                    >
-                                </div>
-                            </a>
-                        </th>
-                        <th aria-label="QTD" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
-                            <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
-                                <span class="slds-assistive-text">Sort by: </span>
-                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                                    <span class="slds-truncate" title="QTD">QTD</span>
-                                </div>
-                            </a>
-                        </th>
-                        <th aria-label="QTD" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
-                            <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
-                                <span class="slds-assistive-text">Sort by: </span>
-                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                                    <span class="slds-truncate" title="QTD">Valor Por Produto</span>
-                                </div>
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="slds-line-height_reset">
-                    <template for:each={products} for:item="produto">
-                        <tr key={produto.id} aria-selected="false" class="slds-hint-parent">
-                            <th scope="row">
-                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="nome">{produto.nome}</div>
+            <lightning-layout>
+                <table
+                    aria-multiselectable="true"
+                    class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
+                    role="grid"
+                    aria-label="Example product list"
+                >
+                    <thead class="slds-text-heading--medium slds-text-font_monospace">
+                        <tr class="slds-line-height_reset">
+                            <th aria-label="Produto" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
+                                    <span class="slds-assistive-text">Sort by: </span>
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                        <span class="slds-truncate" title="Produto">Produto</span>
+                                    </div>
+                                </a>
                             </th>
-                            <td role="gridcell">
-                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
-                                    <lightning-formatted-number
-                                        value={produto.preco}
-                                        format-style="currency"
-                                        currency-code="BRL"
-                                    ></lightning-formatted-number>
-                                </div>
-                            </td>
-                            <td role="gridcell">
-                                <div class="slds-item_label slds-text-color_weak slds-truncate" title="qtd">{produto.qtd}</div>
-                            </td>
+                            <th aria-label="Preço" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
+                                    <span class="slds-assistive-text">Sort by: </span>
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                        <span class="slds-truncate" title="Preço"
+                                            >Preço Uni.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X</span
+                                        >
+                                    </div>
+                                </a>
+                            </th>
+                            <th aria-label="QTD" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
+                                    <span class="slds-assistive-text">Sort by: </span>
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                        <span class="slds-truncate" title="QTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QTD</span>
+                                    </div>
+                                </a>
+                            </th>
+                            <th aria-label="QTD" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
+                                    <span class="slds-assistive-text">Sort by: </span>
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                        <span class="slds-truncate" title="QTD">Preço Por Produtos</span>
+                                    </div>
+                                </a>
+                            </th>
                         </tr>
-                    </template>
-                </tbody>
-                <tfoot>
-                    <tr if:true={products}>
-                        <th scope="row">Total da Venda</th>
-                        <td>
-                            <lightning-formatted-number
-                                value={somaValores}
-                                format-style="currency"
-                                currency-code="BRL"
-                            ></lightning-formatted-number>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            <lightning-button label="Finalizar venda!" onclick={finalizarVenda}></lightning-button>
+                    </thead>
+                    <tbody class="slds-line-height_reset slds-text-heading--medium slds-text-font_monospace">
+                        <template for:each={products} for:item="produto">
+                            <tr key={produto.id} aria-selected="false" class="slds-hint-parent">
+                                <th scope="row">
+                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="nome">
+                                        {produto.nome}
+                                    </div>
+                                </th>
+                                <td role="gridcell">
+                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
+                                        <lightning-formatted-number
+                                            value={produto.preco}
+                                            format-style="currency"
+                                            currency-code="BRL"
+                                        ></lightning-formatted-number>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X
+                                    </div>
+                                </td>
+                                <td role="gridcell">
+                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="qtd">
+                                        <lightning-input
+                                            type="number"
+                                            name="qtd"
+                                            value={produto.qtd}
+                                            onchange={handleAmountChange}
+                                            placeholder="qtd..."
+                                            scope="col"
+                                            class="slds-m-bottom--medium"
+                                        ></lightning-input>
+                                    </div>
+                                </td>
+                                <td role="gridcell">
+                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
+                                        <lightning-formatted-number
+                                            value={produto.precoPorQtd}
+                                            format-style="currency"
+                                            currency-code="BRL"
+                                        ></lightning-formatted-number>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot class="slds-text-heading--large slds-text-font_monospace"></tfoot>
+                </table>
+            </lightning-layout>
+
+            <lightning-layout
+                horizontalalign="center"
+                multiplerows="true"
+                class="slds-text-heading--large slds-text-font_monospace"
+            >
+                <lightning-layout-item padding="around-small" class="slds-p-right_small slds-p-left_small" size="8">
+                    <lightning-button label="Finalizar venda!" onclick={finalizarVenda}></lightning-button>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding=" around-small" class="slds-p-right_small slds-p-left_small" size="4">
+                    Total:
+                    <lightning-formatted-number
+                        value={somaValores}
+                        format-style="currency"
+                        currency-code="BRL"
+                    ></lightning-formatted-number>
+                </lightning-layout-item>
+            </lightning-layout>
         </div>
     </lightning-card>
 </template>

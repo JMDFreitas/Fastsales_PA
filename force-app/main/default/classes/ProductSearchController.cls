@@ -12,11 +12,11 @@ public with sharing class ProductSearchController {
                 produtWrapper.nome = produto.Name;
                 produtWrapper.preco = produto.Preco__c;
                 produtWrapper.codigoBarras = produto.CodigoBarras__c;
-                produtWrapper.qtd = produto.QTD__c;
+                produtWrapper.qtd = 1;
                 produtWrapper.ativo = produto.Ativo__c;
                 produtWrapper.categoria = produto.Categoria__c;
                 produtWrapper.dataCriacao = produto.CreatedDate;
-
+                produtWrapper.precoPorQtd = (produtWrapper.preco * produtWrapper.qtd);
                 productsWrapper.add(produtWrapper);
             }
             return productsWrapper;
@@ -36,6 +36,8 @@ public with sharing class ProductSearchController {
         public String nome { get; set; }
         @AuraEnabled
         public Decimal preco { get; set; }
+        @AuraEnabled
+        public Decimal precoPorQtd { get; set; }
         @AuraEnabled
         public String codigoBarras { get; set; }
         @AuraEnabled
