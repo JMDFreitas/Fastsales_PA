@@ -29,6 +29,21 @@ public abstract class Repository {
         System.debug('QUERY' + query);
         return Database.query(String.escapeSingleQuotes(query));
     }
+    public List<SObject> selectByClauseOrClause(String clause1, String clause2, String filter) {
+        if (filter == null || String.isBlank(filter)) {
+            throw new EmptyIdsException('O parâmetro "filter" deve conter uma string não vazia');
+        } else if (clause1 == null || String.isBlank(clause1)) {
+            throw new RepositoryException('O parâmetro "clause" deve conter uma string não vazia');
+        } else if (clause2 == null || String.isBlank(clause2)) {
+            throw new RepositoryException('O parâmetro "clause" deve conter uma string não vazia');
+        }
+
+        string query = buildQuery();
+        query += buildWhereClauseEqualsFilter(clause1, filter) + ' OR ' + clause2 + ' =:filter';
+
+        System.debug('QUERY' + query);
+        return Database.query(String.escapeSingleQuotes(query));
+    }
 
     public List<SObject> selectByIdWithChilds(Set<Id> ids, Set<Repository> instances) {
         if (ids == null || ids.isEmpty()) {

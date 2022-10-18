@@ -12,7 +12,7 @@ export default class ProductSearch extends LightningElement {
         if (isEnterKey) {
             this.searchKey = evt.target.value;
 
-            findProducts({ clause: "Name", filter: this.searchKey, orderBy: "CreatedDate" })
+            findProducts({ clause1: "Name", clause2: "CodigoProduto__c", filter: this.searchKey })
                 .then((result) => {
                     if (result.length === 0) {
                         this.showToast("Atenção", "Esta produto não existe!", "warning");

@@ -46,7 +46,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="slds-line-height_reset slds-text-heading--medium slds-text-font_monospace">
+                    <tbody class="slds-line-height_reset slds-text-heading--small slds-text-font_monospace">
                         <template for:each={products} for:item="produto">
                             <tr key={produto.id} aria-selected="false" class="slds-hint-parent">
                                 <th scope="row">
@@ -78,8 +78,9 @@
                                     </div>
                                 </td>
                                 <td role="gridcell">
-                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="preco">
+                                    <div class="slds-item_label slds-text-color_weak slds-truncate" title="precoPorQtd">
                                         <lightning-formatted-number
+                                            data-id="precoxQtd"
                                             value={produto.precoPorQtd}
                                             format-style="currency"
                                             currency-code="BRL"
@@ -96,7 +97,7 @@
             <lightning-layout
                 horizontalalign="center"
                 multiplerows="true"
-                class="slds-text-heading--large slds-text-font_monospace"
+                class="slds-text-heading--medium slds-text-font_monospace"
             >
                 <lightning-layout-item padding="around-small" class="slds-p-right_small slds-p-left_small" size="8">
                     <lightning-button label="Finalizar venda!" onclick={finalizarVenda}></lightning-button>

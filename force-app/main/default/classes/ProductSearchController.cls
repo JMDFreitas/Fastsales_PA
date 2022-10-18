@@ -1,10 +1,10 @@
 public with sharing class ProductSearchController {
     @AuraEnabled(Cacheable=true)
-    public static List<ProductWrapper> findProdutosWhereCategoria(String clause, String filter, String orderBy) {
+    public static List<ProductWrapper> findProdutosWhereCategoria(String clause1, String clause2, String filter) {
         List<ProductWrapper> productsWrapper = new List<ProductWrapper>();
 
         try {
-            List<Produto__c> produtos = ProdutosRepository.getInstance().selectByClauseOrderByDesc(clause, filter, orderBy);
+            List<Produto__c> produtos = ProdutosRepository.getInstance().selectByClauseOrClause(clause1, clause2, filter);
 
             for (Produto__c produto : produtos) {
                 ProductWrapper produtWrapper = new ProductWrapper();
