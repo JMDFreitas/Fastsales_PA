@@ -15,7 +15,7 @@ export default class ProductSearch extends LightningElement {
             findProducts({ clause1: "Name", clause2: "CodigoProduto__c", filter: this.searchKey })
                 .then((result) => {
                     if (result.length === 0) {
-                        this.showToast("Atenção", "Esta produto não existe!", "warning");
+                        this.showToast("Atenção", "Este produto não existe!", "warning");
                         return;
                     }
 

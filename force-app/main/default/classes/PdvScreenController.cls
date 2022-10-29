@@ -9,4 +9,13 @@ public with sharing class PdvScreenController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static void createVendaRelacaoProduto(list<VendaRelacaoProduto__c> registros) {
+        try {
+            insert (registros);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

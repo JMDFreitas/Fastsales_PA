@@ -1,12 +1,15 @@
 import { LightningElement, api, track } from "lwc";
 import createVenda from "@salesforce/apex/PdvScreenController.createVenda";
+import createVendaRelacaoProduto from "@salesforce/apex/PdvScreenController.createVendaRelacaoProduto";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class PdvScreen extends LightningElement {
     @track produtos = [];
     somaValores;
     precoProductInsered;
+    idsProdutos = [];
     idProduto;
+    @track venda;
     newProducts = [];
 
     @api
@@ -29,7 +32,6 @@ export default class PdvScreen extends LightningElement {
     }
 
     handleAmountChange(event) {
-        console.log("ID:" + this.idProduto);
         let qtdInsered = event.target.value;
         let precoPorQtd = this.precoProductInsered * qtdInsered;
 
@@ -43,16 +45,8 @@ export default class PdvScreen extends LightningElement {
             }
         }
 
-        // this.produtos.map((item) => {
-        //     if (this.idProduto == item.id) {
-        //         prods.push({ id: item.id, nome: item.nome, preco: item.preco, qtd: qtdInsered, precoPorQtd: precoPorQtd });
-        //     }
-        // });
-
         this.produtos = [...prods];
         this.total();
-
-        console.dir("ARAYS: " + JSON.stringify(prods));
     }
 
     finalizarVenda(event) {
@@ -73,14 +67,39 @@ export default class PdvScreen extends LightningElement {
             .then((result) => {
                 console.log("Result: " + JSON.stringify(result));
                 if (result) {
-                    this.showToast("Ótimo!", "Venda finalizada com suceso", "success");
-                    eval("$A.get('e.force:refreshView').fire();");
+                    this.venda = result;
+                    console.log("Id: " + JSON.stringify(this.venda.Id));
+                    this.showToast("Ótimo!", "Venda finalizada com sucesso", "success");
+                    this.criarVendaRelacaoProduto();
+                    //eval("$A.get('e.force:refreshView').fire();");
                 }
             })
             .catch((error) => {
+                console.log(error);
+                console.error(error);
                 if (error.status == 500) {
                     this.showToast("Atenção", "A venda não foi criada contate o administrador", "error");
                 }
+            });
+    }
+
+    criarVendaRelacaoProduto() {
+        console.log("Entrou criarVendaRelacaoProduto! ");
+        const registros = [];
+        for (let index = 0; index < this.produtos.length; index++) {
+            registros.push({
+                RelacaoVenda__c: this.venda.Id,
+                RelacaoProduto__c: this.produtos[index].id,
+                QuantidadeVenda__c: this.produtos[index].qtd
+            });
+        }
+        console.dir("Registros: " + JSON.stringify(registros));
+        createVendaRelacaoProduto({ registros: registros })
+            .then((result) => {
+                console.log("Criou o VendaRelaProd");
+            })
+            .catch((error) => {
+                this.showToast("Atenção", "Algum erro na Venda Relaçao Produto", "error");
             });
     }
 
