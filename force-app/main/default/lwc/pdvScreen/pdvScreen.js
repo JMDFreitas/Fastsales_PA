@@ -32,6 +32,7 @@ export default class PdvScreen extends LightningElement {
     }
 
     handleAmountChange(event) {
+        action.setStorable();
         let qtdInsered = event.target.value;
         let precoPorQtd = this.precoProductInsered * qtdInsered;
 

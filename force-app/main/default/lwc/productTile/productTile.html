@@ -1,0 +1,18 @@
+<template>
+    <!-- <a onclick={handlePropertySelected}> -->
+    <a>
+        <div class="tile" style={backgroundImageStyle}>
+            <div class="lower-third">
+                <h1 class="truncate">{product.title}</h1>
+                <p>Beds: {product.Beds__c} - Baths: {product.Baths__c}</p>
+                <p>
+                    <lightning-formatted-number
+                        format-style="currency"
+                        currency-code="USD"
+                        value={product.price}
+                    ></lightning-formatted-number>
+                </p>
+            </div>
+        </div>
+    </a>
+</template>
