@@ -4,8 +4,8 @@ public with sharing class IntegrationFakeStoreApiServices {
     public class IntegrationFakeStoreApiServicesException extends Exception {
     }
 
-    public static FakeStoreApiData findProductsInFakeStoreApi() {
-        FakeStoreApiData items;
+    public static String findProductsInFakeStoreApi() {
+        String items;
         try {
             Http http = new Http();
 
@@ -15,9 +15,10 @@ public with sharing class IntegrationFakeStoreApiServices {
 
             HttpResponse res = http.send(req);
             if (res.getStatusCode() == 200) {
-                String json = '{"items":' + res.getBody() + '}';
+                //String json = '{"items":' + res.getBody() + '}';
                 //System.debug('Retorno: ' + json);
-                items = FakeStoreApiData.parse(json);
+                //items = FakeStoreApiData.parse(json);
+                items = res.getBody();
                 System.debug('Retorno: ' + items);
             }
             if (res.getStatusCode() != 200) {

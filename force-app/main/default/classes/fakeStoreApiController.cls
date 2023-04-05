@@ -3,10 +3,12 @@ public with sharing class fakeStoreApiController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static FakeStoreApiData findProducts() {
-        FakeStoreApiData items;
+    public static String findProducts() {
+        String items;
         try {
             items = IntegrationFakeStoreApiServices.findProductsInFakeStoreApi();
+
+            System.debug('Retorno: ' + items);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

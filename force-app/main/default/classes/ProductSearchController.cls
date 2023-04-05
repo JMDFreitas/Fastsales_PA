@@ -5,7 +5,6 @@ public with sharing class ProductSearchController {
 
         try {
             List<Produto__c> produtos = ProdutosRepository.getInstance().selectByClauseOrClause(clause1, clause2, filter);
-
             for (Produto__c produto : produtos) {
                 ProductWrapper produtWrapper = new ProductWrapper();
                 produtWrapper.id = produto.Id;

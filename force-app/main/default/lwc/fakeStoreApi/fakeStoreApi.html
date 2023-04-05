@@ -1,8 +1,48 @@
 <template>
+    <div class="container">
+        <h1>Produtos em destaque</h1>
+        <div class="carousel">
+            <template for:each={items} for:item="product">
+                <div key={product.id} class="carousel-item">
+                    <div class="product">
+                        <div class="product-image">
+                            <img src={product.image} alt={product.title} />
+                        </div>
+                        <div class="product-details">
+                            <h2>{product.title}</h2>
+                            <p>{product.description}</p>
+                            <div class="product-price">${product.price}</div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>
+
+<!-- <template>
+    <div class="container">
+        <template if:true={items}>
+            <div class="grid">
+                <template for:each={items} for:item="product">
+                    <div key={product.id} class="product-card">
+                        <img src={product.image} alt={product.title} class="product-image" />
+                        <h3 class="product-title">{product.title}</h3>
+                        <p class="product-price">${product.price}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:false={products}>
+            <p>Loading...</p>
+        </template>
+    </div>
+</template>
+ <template>
     <div class="slds-card slds-var-p-around_small">
-        <template lwc:if={products.data}>
+        <template lwc:if={items}>
             <div class="slds-grid slds-wrap">
-                <template for:each={products.data.items} for:item="product">
+                <template for:each={items} for:item="product">
                     <c-product-tile
                         product={product}
                         key={product.id}
@@ -11,20 +51,20 @@
                     ></c-product-tile>
                 </template>
             </div>
-            <!-- <c-paginator
+             <c-paginator
                 page-number={pageNumber}
                 page-size={pageSize}
                 total-item-count={products.data.totalItemCount}
                 onprevious={handlePreviousPage}
                 onnext={handleNextPage}
-            ></c-paginator> -->
+            ></c-paginator> 
         </template>
         <template lwc:else>
             Erro
-            <!-- <c-error-panel
+             <c-error-panel
                 friendly-message="Error retrieving data"
                 errors={products.error}
-            ></c-error-panel> -->
+            ></c-error-panel> 
         </template>
     </div>
-</template>
+</template> -->

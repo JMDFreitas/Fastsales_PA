@@ -4,7 +4,7 @@
         <div class="tile" style={backgroundImageStyle}>
             <div class="lower-third">
                 <h1 class="truncate">{product.title}</h1>
-                <p>Beds: {product.Beds__c} - Baths: {product.Baths__c}</p>
+                <p>Beds: {product.category} - Baths: {product.id}</p>
                 <p>
                     <lightning-formatted-number
                         format-style="currency"
@@ -16,3 +16,4 @@
         </div>
     </a>
 </template>
+<!-- style={backgroundImageStyle} -->
